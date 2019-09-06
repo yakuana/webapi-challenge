@@ -37,8 +37,8 @@ router.post('/', validateProject, (req, res) => {
     const newAction = req.body;
 
     db.insert(newAction)
-        .then(action => {
-            res.status(201).json(action)
+        .then(project => {
+            res.status(201).json(project)
         })
         .catch(err => {
             res.status(500).json({
@@ -104,7 +104,7 @@ function validateProject(req, res, next) {
         res.status(400).json({ 
             error: "Missing required description.",
         })
-    } else if (action && action.description) {
+    } else if (project && project.description) {
         res.status(400).json({ 
             error: "Missing required name.",
         })

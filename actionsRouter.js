@@ -68,12 +68,12 @@ router.delete('/:id', validateId, (req, res) => {
     const { id } = req.params; // OR const id = req.params.id;
     
     db.remove(id) 
-        .then(user => {
-            res.status(200).json(user)
+        .then(actions => {
+            res.status(200).json(actions)
         })
         .catch(err => {
             res.status(500).json({
-                message: "The user could not be removed",
+                message: "The actions could not be removed",
                 error: err
             })
         })
@@ -86,6 +86,20 @@ function validateId(req, res, next) {
 
     if (id) {   
         req.id = req.params.id
+    } else {
+        res.status(400).json({
+            message: "Invalid Id.",
+        })
+    }
+
+    next(); 
+};
+
+function validateActionId(req, res, next) {
+    const { post_id } = req.body; 
+
+    if (id) {   
+        req.id = req.body.post_id
     } else {
         res.status(400).json({
             message: "Invalid Id.",
